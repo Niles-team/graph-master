@@ -1,0 +1,4 @@
+{
+    "typescript.tsdk": "graph-master/node_modules/typescript/lib",
+    "git.ignoreLimitWarning": true
+}

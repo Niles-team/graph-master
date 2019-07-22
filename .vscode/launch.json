@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "graph-master (vscode+chrome)",
+            "configurations": [ "graph-master (console)", "graph-master (chrome)" ]
+        },
+    ],
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "graph-master (chrome)",
+            "url": "http://localhost:8085",
+            "webRoot": "${workspaceRoot}/graph-master/wwwroot",
+            "breakOnLoad": false,
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+              "webpack:///./src/*": "${workspaceRoot}/graph-master/*"
+            }
+        },
+        {
+            "name": "graph-master (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceRoot}/graph-master/bin/Debug/netcoreapp2.2/graph-master.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}/graph-master",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "COMPlus_ZapDisable": "1"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceRoot}/graph-master/Views"
+            },
+            "justMyCode": false,
+            "suppressJITOptimizations": true,
+        }
+    ]
+}
