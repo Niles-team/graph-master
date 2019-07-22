@@ -1,7 +1,7 @@
-graph-master/node_modules/
-graph-master/wwwroot/dist
-graph-master/bin
-graph-master/obj
+/node_modules/
+/wwwroot/dist/
+/bin/
+/obj/
 
 # Build results
 [Dd]ebug/
