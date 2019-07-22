@@ -1,8 +1,3 @@
-/node_modules/
-/wwwroot/dist/
-/bin/
-/obj/
-
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -16,3 +11,7 @@ bld/
 [Ll]og/
 
 graph-master/Views/Shared/_Layout.cshtml
+graph-master/node_modules/
+graph-master/wwwroot/dist/
+graph-master/bin/
+graph-master/obj/
