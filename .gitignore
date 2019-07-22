@@ -1,5 +1,5 @@
 node_modules/
-./graph-master/wwwroot/dist
+graph-master/wwwroot/dist
 
 # Build results
 [Dd]ebug/
