@@ -5,9 +5,9 @@ import { Router } from "react-router-dom";
 import { CssBaseline } from "@material-ui/core";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 
-import { App } from "./components/App";
+import { routes } from "./routes";
 
 const logoColors = {
     blueHex: "#2EA5D8",
@@ -28,18 +28,19 @@ const theme = createMuiTheme({
     },
 });
 
-const baseUrl = document
-    .getElementsByTagName("base")[0]
-    .getAttribute("href")!;
+const baseUrl = "/";
+    // document
+    // .getElementsByTagName("base")[0]
+    // .getAttribute("href")!;
 
-const history = createHistory({ basename: baseUrl });
+const history = createBrowserHistory({ basename: baseUrl });
 
 ReactDOM.render(
     <React.Fragment>
         <CssBaseline />
         <MuiThemeProvider theme={theme}>
             <Router history={history}>
-                <App />
+                {routes}
             </Router>
         </MuiThemeProvider>
     </React.Fragment>,
