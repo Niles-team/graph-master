@@ -1,49 +1,31 @@
 {
   "name": "graph-master",
   "version": "1.0.0",
+  "main": "webpack.config.js",
   "scripts": {
-    "build": "webpack --progress",
-    "watch": "webpack --watch",
-    "lint": "tslint -c tslint.json 'ClientApp/**/*.{ts,tsx}'",
-    "test": "jest"
+    "start": "webpack-dev-server --open --progress",
+    "build": "webpack --progress --color",
+    "watch": "webpack --watch"
   },
-  "author": {
-    "email": "kni2012.15@gmail.com",
-    "name": "Kirill Ivanchenko",
-    "url": "https://vk.com/ivanchenkokirill"
-  },
+  "license": "ISC",
   "devDependencies": {
-    "@types/history": "4.7.0",
-    "@types/lodash": "^4.14.105",
+    "@types/history": "^4.7.2",
     "@types/react": "^16.8.23",
-    "@types/react-dom": "^16.8.4",
-    "@types/react-router-dom": "^4.3.0",
-    "fork-ts-checker-webpack-plugin": "^1.4.3",
+    "@types/react-dom": "^16.8.5",
+    "@types/react-router-dom": "^4.3.4",
     "html-webpack-plugin": "^3.2.0",
-    "lodash": "^4.17.5",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
     "source-map-loader": "^0.2.4",
     "ts-loader": "^6.0.4",
-    "ts-nameof": "^3.2.0",
     "typescript": "^3.5.3",
-    "url-loader": "^2.1.0",
-    "webpack": "^4.36.1",
-    "webpack-cli": "^3.3.6"
+    "webpack": "^4.37.0",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
-    "@date-io/date-fns": "^1.0.2",
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
-    "@types/date-fns": "^2.6.0",
-    "@types/node": "^12.6.8",
-    "@types/recharts": "^1.0.26",
-    "date-fns": "^2.0.0-alpha.27",
-    "material-ui-pickers": "^2.2.4",
-    "npm-check-updates": "^3.1.20",
-    "react-animated-burgers": "^1.2.7",
-    "recharts": "^1.5.0",
-    "styled-components": "^4.3.2"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }

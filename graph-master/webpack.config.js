@@ -1,60 +1,61 @@
 const path = require('path');
 const webpack = require('webpack');
-const bundleOutputDir = './wwwroot/dist';
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const tsNameof = require("ts-nameof");
+
+const bundleOutputDir = './dist';
 
 const webpackServeOptions = {
     devMiddleware: {
-        publicPath: '/dist/',
+        publicPath: bundleOutputDir,
         writeToDisk: true,
         headers: {
             'Access-Control-Allow-Origin': '*'
         }
     },
     host: 'localhost',
-    port: 8085
+    port: 80
 };
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
+
     return [{
         mode: isDevBuild ? "development" : "production",
         devtool: isDevBuild ? "eval-source-map" : "none",
-        stats: { modules: false },
+        stats: {modules: false},
         entry: {
-            'main': './ClientApp/boot.tsx',
+            'main': './src/index.tsx'
         },
         resolve: {
             alias: {
-                '~': path.resolve(__dirname, 'ClientApp')
+                '~': path.resolve(__dirname)
             },
-            extensions: ['.js', '.jsx', '.ts', '.tsx']
+            // Add '.ts' and '.tsx' as resolvable extensions.
+            extensions: ['.js', '.jsx', ".ts", ".tsx"]
         },
         output: {
             path: path.join(__dirname, bundleOutputDir),
             filename: '[name].js',
             publicPath: process.env.WEBPACK_SERVE ?
-                `http://${webpackServeOptions.host}:${webpackServeOptions.port}/dist/` :
-                '/dist/'
+                        `http://${webpackServeOptions.host}:${webpackServeOptions.port}/dist/` :
+                        ''
         },
-        serve: webpackServeOptions,
+        devServer: {
+            contentBase: './dist',
+            open: path.resolve(__dirname, 'dist', 'index.html'),
+            hot: true,
+            port: 8085
+          },
         module: {
             rules: [
                 {
-                    test: /\.tsx?$/,
-                    include: path.resolve(__dirname, 'ClientApp'),
-                    loader: "ts-loader",
-                    options: {
-                        transpileOnly: true,
-                        getCustomTransformers: () => ({ before: [tsNameof] })
-                    }
-                },
-                {
-                    test: /\.(woff|woff2|eot|ttf|svg)(\?|$)/,
-                    include: path.resolve(__dirname, 'ClientApp'),
-                    use: 'url-loader?limit=100000'
+                    test: /\.ts(x?)$/,
+                    include: __dirname,
+                    use: [
+                        {
+                            loader: "ts-loader"
+                        }
+                    ]
                 },
                 // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
                 {
@@ -65,14 +66,11 @@ module.exports = (env) => {
             ]
         },
         plugins: [
-            new ForkTsCheckerWebpackPlugin({
-                memoryLimit: 7500,
-            }),
             new HtmlWebpackPlugin({
-                filename: path.resolve(__dirname, 'Views', 'Shared', '_Layout.cshtml'),
-                template: path.resolve(__dirname, 'Views', 'Shared', '_Layout.cshtml.template'),
+                filename: 'index.html',
+                template: path.resolve(__dirname, 'views', 'index.html.template'),
                 templateParameters: { baseHref: '~/' },
-                chunks: ['main']
+                chunks: [ 'main' ]
             }),
         ].concat(isDevBuild ? [
             // Plugins that apply in development builds only

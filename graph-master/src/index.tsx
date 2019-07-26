@@ -1,9 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Router } from "react-router-dom";
+import { Router } from "react-router";
 
-import { CssBaseline } from "@material-ui/core";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { CssBaseline, MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 
 import { createBrowserHistory } from 'history';
 
@@ -15,7 +14,6 @@ const logoColors = {
     purpleHex: "#6F92CB",
 };
 
-// createMuiTheme generates light, dark, and contrastText (when omitted) from of the main color
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -28,11 +26,9 @@ const theme = createMuiTheme({
     },
 });
 
-const baseUrl = "/";
-    // document
-    // .getElementsByTagName("base")[0]
-    // .getAttribute("href")!;
-
+const baseUrl = document
+    .getElementsByTagName("base")[0]
+    .getAttribute("href")!;
 const history = createBrowserHistory({ basename: baseUrl });
 
 ReactDOM.render(
@@ -40,7 +36,7 @@ ReactDOM.render(
         <CssBaseline />
         <MuiThemeProvider theme={theme}>
             <Router history={history}>
-                {routes}
+
             </Router>
         </MuiThemeProvider>
     </React.Fragment>,
