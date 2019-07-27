@@ -36,7 +36,7 @@ ReactDOM.render(
         <CssBaseline />
         <MuiThemeProvider theme={theme}>
             <Router history={history}>
-
+                {routes}
             </Router>
         </MuiThemeProvider>
     </React.Fragment>,
