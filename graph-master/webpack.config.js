@@ -23,6 +23,7 @@ module.exports = (env) => {
         devServer: {
             contentBase: path.resolve(__dirname, 'src', 'views'),
             compress: true,
+            historyApiFallback: true,
             port: 8085,
             publicPath: '/build/',
             watchContentBase: true,
