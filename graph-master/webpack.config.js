@@ -2,20 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const bundleOutputDir = './dist';
-
-const webpackServeOptions = {
-    devMiddleware: {
-        publicPath: bundleOutputDir,
-        writeToDisk: true,
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        }
-    },
-    host: 'localhost',
-    port: 80
-};
-
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
 
@@ -27,24 +13,20 @@ module.exports = (env) => {
             'main': './src/index.tsx'
         },
         resolve: {
-            alias: {
-                '~': path.resolve(__dirname)
-            },
             // Add '.ts' and '.tsx' as resolvable extensions.
             extensions: ['.js', '.jsx', ".ts", ".tsx"]
         },
         output: {
-            path: path.join(__dirname, bundleOutputDir),
-            filename: '[name].js',
-            publicPath: process.env.WEBPACK_SERVE ?
-                        `http://${webpackServeOptions.host}:${webpackServeOptions.port}/dist/` :
-                        ''
+            path: path.resolve(__dirname, './build'),
+            filename: '[name].js'
         },
         devServer: {
-            contentBase: './dist',
-            open: path.resolve(__dirname, 'dist', 'index.html'),
-            hot: true,
-            port: 8085
+            contentBase: path.resolve(__dirname, 'src', 'views'),
+            compress: true,
+            port: 8085,
+            publicPath: '/build/',
+            watchContentBase: true,
+            writeToDisk: true,
           },
         module: {
             rules: [
@@ -67,16 +49,16 @@ module.exports = (env) => {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                filename: 'index.html',
-                template: path.resolve(__dirname, 'views', 'index.html.template'),
-                templateParameters: { baseHref: '~/' },
+                filename: path.resolve(__dirname, 'src', 'views', 'index.html'),
+                template: path.resolve(__dirname, 'src', 'views', 'index.html.template'),
+                templateParameters: { baseHref: '' },
                 chunks: [ 'main' ]
             }),
         ].concat(isDevBuild ? [
             // Plugins that apply in development builds only
             new webpack.SourceMapDevToolPlugin({
                 filename: '[file].map', // Remove this line if you prefer inline source maps
-                moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
+                moduleFilenameTemplate: path.relative('/build/', '[resourcePath]') // Point sourcemap entries to the original file locations on disk
             })
         ] : [])
     }];

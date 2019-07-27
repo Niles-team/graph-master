@@ -1,19 +1,20 @@
 {
   "name": "graph-master",
   "version": "1.0.0",
-  "main": "webpack.config.js",
   "scripts": {
-    "start": "webpack-dev-server --open --progress",
+    "dev": "webpack-dev-server --progress --watch",
     "build": "webpack --progress --color",
     "watch": "webpack --watch"
   },
   "license": "ISC",
   "devDependencies": {
     "@types/history": "^4.7.2",
+    "@types/lodash": "^4.14.136",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
     "@types/react-router-dom": "^4.3.4",
     "html-webpack-plugin": "^3.2.0",
+    "lodash": "^4.17.15",
     "react-router-dom": "^5.0.1",
     "source-map-loader": "^0.2.4",
     "ts-loader": "^6.0.4",
@@ -26,6 +27,8 @@
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-animated-burgers": "^1.2.7",
+    "react-dom": "^16.8.6",
+    "styled-components": "^4.3.2"
   }
 }
