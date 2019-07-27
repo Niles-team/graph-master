@@ -10,7 +10,8 @@ bld/
 [Oo]bj/
 [Ll]og/
 
-graph-master/node_modules/
-graph-master/dist/
-graph-master/bin/
-graph-master/obj/
+node_modules/
+build/
+*-lock*
+
+*.html
