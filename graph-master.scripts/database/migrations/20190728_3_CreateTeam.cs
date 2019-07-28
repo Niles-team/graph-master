@@ -2,7 +2,7 @@ using FluentMigrator;
 
 namespace graph_master.scripts.database.migrations
 {
-    [Migration(201907280001)]
+    [Migration(201907280003)]
     public class CreateTeam : Migration
     {
         public override void Up()
