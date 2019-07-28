@@ -15,7 +15,7 @@ namespace graph_master.scripts
         {
             AppConfig.LoadEnv("../");
 
-            CommandLine.Parser.Default.ParseArguments<MigrateOptions, RollbackOptions, DropOptions, CreateOptions>(args)
+            CommandLine.Parser.Default.ParseArguments<MigrateOptions>(args)
             .MapResult(
                 (MigrateOptions opts) => RunMigrate(opts),
                 errs => 1);
