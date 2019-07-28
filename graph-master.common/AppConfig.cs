@@ -1,5 +1,10 @@
+using System;
+using System.IO;
+using graph_master.common.Exceptions;
+
 namespace graph_master.common
 {
+    ///<summary>App configurations class</summary>
     public static class AppConfig
     {
         ///<summary>Database connection string</summary>
@@ -47,8 +52,14 @@ namespace graph_master.common
             get
             {
                 string value = DefaultedEnvVar("SHOW_DB_LOGS", "");
-                return !String.IsNullOrEmpty(value);
+                return !string.IsNullOrEmpty(value);
             }
+        }
+
+        ///<summary>Name of environment of solution</summary>
+        public static string EnvironmentName
+        {
+            get { return GetRequiredVar("ASPNETCORE_ENVIRONMENT"); }
         }
 
         ///<summary>Loading solution environment variables</summary>

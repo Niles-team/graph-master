@@ -1,4 +1,5 @@
 ﻿using System;
+using graph_master.common;
 
 namespace graph_master.scripts
 {
@@ -6,7 +7,7 @@ namespace graph_master.scripts
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            AppConfig.LoadEnv(".");            
         }
     }
 }

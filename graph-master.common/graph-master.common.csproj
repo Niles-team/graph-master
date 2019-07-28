@@ -5,4 +5,8 @@
     <RootNamespace>graph_master.common</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="1.2.0" />
+  </ItemGroup>
+
 </Project>

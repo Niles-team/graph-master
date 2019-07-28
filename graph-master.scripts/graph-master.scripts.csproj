@@ -12,4 +12,8 @@
     <PackageReference Include="FluentMigrator.Runner.Postgres" Version="3.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\graph-master.common\graph-master.common.csproj" />
+  </ItemGroup>
+
 </Project>
