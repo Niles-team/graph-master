@@ -6,8 +6,8 @@ namespace graph_master.data.interfaces
 {
     public interface IUserDao
     {
-        Task<int> CreateUser(User user);
-        Task<int> UpdateUser(User user);
+        Task<User> CreateUser(User user);
+        Task<User> UpdateUser(User user);
         Task<UserAuthenticate> ValidateUser(string userName, string password);
     }
 }

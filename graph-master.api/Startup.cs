@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using graph_master.data;
+using graph_master.data.interfaces;
+using graph_master.models.enums;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +29,14 @@ namespace graph_master.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            string connectionString = Configuration.GetConnectionString("graph-master");
+            
+            Environment.SetEnvironmentVariable("connectionString", connectionString);
+            
+            services.AddScoped<IUserDao>(provider => {
+                var factory = DaoFactories.GetFactory(DataProvider.AdoNet, connectionString);
+                return factory.UserDao;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

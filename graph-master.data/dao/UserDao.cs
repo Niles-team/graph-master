@@ -9,19 +9,28 @@ namespace graph_master.data.dao
     {
         public UserDao(string connectionString) : base(connectionString) { }
 
-        public async Task<int> CreateUser(User user)
+        public async Task<User> CreateUser(User user)
         {
-            return await QueryFirstAsync<int>(@"
+            user.Id = await QueryFirstAsync<int>(@"
                 insert into users (team_id, user_name, password_hash, first_name, last_name, email)
                 values (@teamId, @userName, crypt(@password, gen_salt('bf')), @firstName, @lastName, @email)
                 returning id
-             ",
-             new { teamId = user.teamId, userName = user.userName, password = user.password, firstName = user.firstName, lastName = user.lastName, email = user.email });
+            ",
+            new
+            {
+                teamId = user.TeamId,
+                userName = user.UserName,
+                password = user.Password,
+                firstName = user.FirstName,
+                lastName = user.LastName,
+                email = user.Email
+            });
+            return user;
         }
 
-        public async Task<int> UpdateUser(User user)
+        public async Task<User> UpdateUser(User user)
         {
-            return await QueryFirstAsync<int>(@"
+            await ExecuteAsync(@"
                 update users
                 set 
                     team_id = @teamId,
@@ -31,9 +40,19 @@ namespace graph_master.data.dao
                     last_name = @lastName,
                     email = @email)
                 where id = @id
-                returning id
-             ",
-             new { id = user.id, teamId = user.teamId, userName = user.userName, password = user.password, firstName = user.firstName, lastName = user.lastName, email = user.email });
+            ",
+            new
+            {
+                id = user.Id,
+                teamId = user.TeamId,
+                userName = user.UserName,
+                password = user.Password,
+                firstName = user.FirstName,
+                lastName = user.LastName,
+                email = user.Email
+            });
+
+            return user;
         }
 
         public async Task<UserAuthenticate> ValidateUser(string userName, string password)

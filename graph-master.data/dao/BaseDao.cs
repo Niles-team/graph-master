@@ -10,12 +10,12 @@ namespace graph_master.data.dao
     public abstract class BaseDao
     {
         protected readonly string connectionString;
-        public BaseDao(string connectionString)
+        protected BaseDao(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
-        public IEnumerable<T> Query<T>(string sql, object parameters = null)
+        protected IEnumerable<T> Query<T>(string sql, object parameters = null)
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -31,7 +31,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public T QueryFirst<T>(string sql, object parameters = null)
+        protected T QueryFirst<T>(string sql, object parameters = null)
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -47,7 +47,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public T QueryFirstOrDefault<T>(string sql, object parameters = null)
+        protected T QueryFirstOrDefault<T>(string sql, object parameters = null)
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -63,7 +63,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public async Task<IEnumerable<T>> QueryAsync<T>(string sql, object parameters = null)
+        protected async Task<IEnumerable<T>> QueryAsync<T>(string sql, object parameters = null)
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -79,7 +79,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public async Task<T> QueryFirstAsync<T>(string sql, object parameters = null)
+        protected async Task<T> QueryFirstAsync<T>(string sql, object parameters = null)
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -95,7 +95,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public async Task<T> QueryFirstOrDefaultAsync<T>(string sql, object parameters = null)
+        protected async Task<T> QueryFirstOrDefaultAsync<T>(string sql, object parameters = null)
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -111,7 +111,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public T QuerySingle<T>(string sql, object parameters = null)
+        protected T QuerySingle<T>(string sql, object parameters = null)
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -127,7 +127,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public T QuerySingleOrDefault<T>(string sql, object parameters = null)
+        protected T QuerySingleOrDefault<T>(string sql, object parameters = null)
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -143,7 +143,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public async Task<T> QuerySingleAsync<T>(string sql, object parameters = null)
+        protected async Task<T> QuerySingleAsync<T>(string sql, object parameters = null)
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -159,7 +159,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public async Task<T> QuerySingleOrDefaultAsync<T>(string sql, object parameters = null)
+        protected async Task<T> QuerySingleOrDefaultAsync<T>(string sql, object parameters = null)
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -176,7 +176,7 @@ namespace graph_master.data.dao
             }
         }
         
-        public void Execute(string sql, object parameters = null)
+        protected void Execute(string sql, object parameters = null)
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -192,7 +192,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public async Task ExecuteAsync(string sql, object parameters = null)
+        protected async Task ExecuteAsync(string sql, object parameters = null)
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -209,7 +209,7 @@ namespace graph_master.data.dao
             }
         }
 
-        public int? Insert<TEntity>(TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
+        protected int? Insert<TEntity>(TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -225,7 +225,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public async Task<int?> InsertAsync<TEntity>(TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
+        protected async Task<int?> InsertAsync<TEntity>(TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -241,7 +241,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public bool Update<TEntity>(TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
+        protected bool Update<TEntity>(TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -257,7 +257,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public async Task<bool> UpdateAsync<TEntity>(TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
+        protected async Task<bool> UpdateAsync<TEntity>(TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -273,7 +273,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public bool Delete<TEntity>(TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
+        protected bool Delete<TEntity>(TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -289,7 +289,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public bool DeleteAll<TEntity>(IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
+        protected bool DeleteAll<TEntity>(IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -305,7 +305,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public async Task<bool> DeleteAsync<TEntity>(TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
+        protected async Task<bool> DeleteAsync<TEntity>(TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
@@ -321,7 +321,7 @@ namespace graph_master.data.dao
                 }
             }
         }
-        public async Task<bool> DeleteAllAsync<TEntity>(IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
+        protected async Task<bool> DeleteAllAsync<TEntity>(IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
         {
             using(IDbConnection connection = new Npgsql.NpgsqlConnection(this.connectionString))
             {
