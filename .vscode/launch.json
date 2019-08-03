@@ -6,7 +6,10 @@
     "compounds": [
         {
             "name": "graph-master (vscode+chrome)",
-            "configurations": [ "graph-master (console)" ]
+            "configurations": [
+                "graph-master (chrome)",
+                "graph-master (api)"
+            ]
         },
     ],
     "configurations": [
@@ -17,6 +20,21 @@
             "url": "http://localhost:8085",
             "breakOnLoad": false,
             "sourceMaps": true,
-        }
+        },
+        {
+            "name": "graph-master (api)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceRoot}/graph-master.api/bin/Debug/netcoreapp2.2/graph-master.api.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}/graph-master.api",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+            },
+            "justMyCode": false,
+            "suppressJITOptimizations": true,
+        },
     ]
 }
