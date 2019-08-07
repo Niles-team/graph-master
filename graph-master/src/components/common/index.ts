@@ -1,1 +1,1 @@
-export * from './UnauthorizeRedirect';
+export * from './ErrorRedirect';
