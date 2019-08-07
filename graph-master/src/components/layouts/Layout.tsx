@@ -21,7 +21,7 @@ import { WithStyles } from "@material-ui/styles";
 import { HamburgerArrowTurn } from "react-animated-burgers";
 
 import { routes } from "../../sharedConstants";
-import mergeStyles from "../../utils/mergeStyles";
+import { mergeStyles } from "../../utils";
 import { layoutStyles } from "../../mui-theme";
 import { Dashboard, Timeline } from "@material-ui/icons";
 

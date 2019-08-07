@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { withStyles } from "@material-ui/core";
-import mergeStyles from "../utils/mergeStyles";
+import { mergeStyles } from "../utils/mergeStyles";
 
 const styles = mergeStyles();
 
