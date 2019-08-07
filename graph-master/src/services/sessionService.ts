@@ -1,51 +1,66 @@
-// import { History } from "history";
+import { StorageItem } from "../models";
 
-// const noInit = {}
-// const storageKey = 'app_voyage';
-// const searchParamName = 'impersonatedTenantId';
-// class SessionService {
-//     hookHistory(history: History) {
-//         const originalPush = history.push;
-//         const originalReplace = history.replace;
-//         history.push = async (a: string | LocationDescriptorObject, b?) => {
-//             const storageItem = await this.getStorageItem();
-//             if (typeof a === 'string') {
-//                 if (storageItem.impersonatedTenantId) {
-//                     a = a.includes('?') ?
-//                         a + `&${searchParamName}=${storageItem.impersonatedTenantId}` :
-//                         a + `?${searchParamName}=${storageItem.impersonatedTenantId}`;
-//                 }
-//                 originalPush(a, b)
-//             } else {
-//                 if (storageItem.impersonatedTenantId) {
-//                     if (a.search) {
-//                         a = { ...a, search: a.search + `&${searchParamName}=${storageItem.impersonatedTenantId}` }
-//                     } else {
-//                         a = { ...a, search: `?${searchParamName}=${storageItem.impersonatedTenantId}` }
-//                     }
-//                 }
-//                 originalPush(a)
-//             }
-//         };
-//         history.replace = async (a: string | LocationDescriptorObject, b?) => {
-//             const storageItem = await this.getStorageItem();
-//             if (typeof a === 'string') {
-//                 if (storageItem.impersonatedTenantId) {
-//                     a = a.includes('?') ?
-//                         a + `&${searchParamName}=${storageItem.impersonatedTenantId}` :
-//                         a + `?${searchParamName}=${storageItem.impersonatedTenantId}`;
-//                 }
-//                 originalReplace(a, b)
-//             } else {
-//                 if (storageItem.impersonatedTenantId) {
-//                     if (a.search) {
-//                         a = { ...a, search: a.search + `&${searchParamName}=${storageItem.impersonatedTenantId}` }
-//                     } else {
-//                         a = { ...a, search: `?${searchParamName}=${storageItem.impersonatedTenantId}` }
-//                     }
-//                 }
-//                 originalReplace(a)
-//             }
-//         };
-//     }
-// }
+class SessionService {
+    private originalFetch: typeof fetch;
+
+    private readonly storageKey: string = 'graph-master-app';
+    private readonly noInit = {};
+
+    public init() : void {
+        this.originalFetch = fetch.bind(window);
+        this.mixSessionFetch();
+    }
+
+    public isUserAuthenticated(): boolean {
+        const storageValue = this.getStorageItem();
+        return storageValue && Boolean(storageValue.token);
+    }
+
+    private getStorageItem(): StorageItem {
+        let storageValue: StorageItem = JSON.parse(sessionStorage.getItem(this.storageKey));
+
+        return storageValue;
+    }
+
+    private mixSessionFetch() {
+        window.fetch = async (input, init) => {
+            const storageItem = await this.getStorageItem();
+            const needCredentials = init.credentials === 'include';
+            // TODO probably some day we will need to check same-origin here
+            const needChangeInit = needCredentials;
+            if (needChangeInit) {
+                if (!init) {
+                    init = this.noInit;
+                }
+                let headers = init.headers || this.noInit;
+                const authenticationHeaders = needCredentials ?
+                    { "Authorization": `Bearer ${storageItem.token}` } :
+                    this.noInit;
+                init = {
+                    ...init,
+                    headers: {
+                        ...headers,
+                        ...authenticationHeaders
+                    }
+                };
+            }
+
+            // Url correction in case we want to send a request to new api
+            // TODO: Remove in future
+            if (typeof input === "string") {
+                const prefixRegex = /^\/?api\//;
+                const matches = prefixRegex.exec(input);
+
+                if (matches && matches.length > 0) {
+                    delete init["credentials"]; // we cant put this header because of CROS limitations
+                    const offset = matches[0].length;
+                    input = `http://localhost:5000/api/${input.substring(offset)}`;
+                }
+            }
+
+            return this.originalFetch(input, init);
+        };
+    }
+}
+
+export const sessionService = new SessionService();
