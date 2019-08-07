@@ -7,18 +7,18 @@ namespace graph_master.scripts.database.migrations
     {
         public override void Up()
         {
-            Create.Table("Teams")
-                .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("Name").AsString().NotNullable()
-                .WithColumn("Description").AsString().Nullable()
-                .WithColumn("Url").AsString().Nullable()
-                .WithColumn("DateCreated").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
-                .WithColumn("DateUpdated").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
+            Create.Table("teams")
+                .WithColumn("id").AsInt32().PrimaryKey().Identity()
+                .WithColumn("name").AsString().NotNullable()
+                .WithColumn("description").AsString().Nullable()
+                .WithColumn("url").AsString().Nullable()
+                .WithColumn("date_created").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+                .WithColumn("date_updated").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
         }
 
         public override void Down()
         {
-            Delete.Table("Teams");
+            Delete.Table("teams");
         }
     }
 }

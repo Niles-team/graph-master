@@ -7,13 +7,13 @@ namespace graph_master.scripts.database.migrations
     {
         public override void Up()
         {
-            Create.Column("UserId").OnTable("Graphs").AsInt32().Nullable();
-            Create.Column("TeamId").OnTable("Graphs").AsInt32().Nullable();
+            Create.Column("user_id").OnTable("graphs").AsInt32().Nullable();
+            Create.Column("team_id").OnTable("graphs").AsInt32().Nullable();
         }
         public override void Down()
         {
-            Delete.Column("UserId").FromTable("Graphs");
-            Delete.Column("TeamId").FromTable("Graphs");
+            Delete.Column("user_id").FromTable("graphs");
+            Delete.Column("team_id").FromTable("graphs");
         }
     }
 }

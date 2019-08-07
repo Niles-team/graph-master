@@ -8,21 +8,21 @@ namespace graph_master.scripts.database.migrations
     {
         public override void Up()
         {
-            Create.Table("Users")
-                .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("TeamId").AsInt32().Nullable()
-                .WithColumn("UserName").AsString().NotNullable()
-                .WithColumn("PasswordHash").AsString().NotNullable()
-                .WithColumn("FirstName").AsString().NotNullable()
-                .WithColumn("LastName").AsString().NotNullable()
-                .WithColumn("Email").AsString().NotNullable()
-                .WithColumn("DateCreated").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
-                .WithColumn("DateUpdated").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
+            Create.Table("users")
+                .WithColumn("id").AsInt32().PrimaryKey().Identity()
+                .WithColumn("team_id").AsInt32().Nullable()
+                .WithColumn("user_name").AsString().NotNullable()
+                .WithColumn("password_hash").AsString().NotNullable()
+                .WithColumn("first_name").AsString().NotNullable()
+                .WithColumn("last_name").AsString().NotNullable()
+                .WithColumn("email").AsString().NotNullable()
+                .WithColumn("date_created").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+                .WithColumn("date_updated").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
         }
         
         public override void Down()
         {
-            Delete.Table("Users");
+            Delete.Table("users");
         }
     }
 }
