@@ -5,3 +5,7 @@ export interface Route {
     exact?: boolean;
     component?: React.ComponentType;
 }
+
+export interface StorageItem {
+    token: string;
+}
