@@ -10,8 +10,16 @@ namespace graph_master.models
         public string Email { get; set; }
         public int? TeamId { get; set; }
     }
-    public class UserAuthenticate : User
+
+    public class UserAuthenticated : User
     {
         public string Token { get; set; }
+    }
+
+    public class UserSignIn
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public bool? RememberMe { get; set; }
     }
 }
