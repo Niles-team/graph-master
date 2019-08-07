@@ -7,6 +7,7 @@ import { CssBaseline, MuiThemeProvider, createMuiTheme } from "@material-ui/core
 import { createBrowserHistory } from 'history';
 
 import { routes } from "./routes";
+import { sessionService } from "./services";
 
 const logoColors = {
     blueHex: "#2EA5D8",
@@ -29,6 +30,9 @@ const theme = createMuiTheme({
 const baseUrl = document
     .getElementsByTagName("base")[0]
     .getAttribute("href")!;
+
+sessionService.init();
+
 const history = createBrowserHistory({ basename: baseUrl });
 
 ReactDOM.render(
