@@ -1,6 +1,6 @@
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
-export default function mergeStyles(...styles: any[]) {
+export function mergeStyles(...styles: any[]) {
   return function(theme: Theme) {
     const evaluatedStyles = styles.map((style) => {
       if (typeof style === 'function') {
