@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\graph-master.models\graph-master.models.csproj" />
+    <ProjectReference Include="..\graph-master.common\graph-master.common.csproj" />
   </ItemGroup>
 
 </Project>
