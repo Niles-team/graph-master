@@ -10,6 +10,34 @@ namespace graph_master.data.dao
     {
         public UserDao(string connectionString) : base(connectionString) { }
 
+        public async Task<User> GetUser(int id)
+        {
+            try
+            {
+                Logger.LogInfo("Start user get request");
+
+                var result = await QueryFirstOrDefaultAsync<User>(@"
+                    select 
+                        id as Id,
+                        user_name as UserName,
+                        first_name as FirstName,
+                        last_name as LastName,
+                        email as Email
+                    from users
+                    where id = @id
+                ", new { id });
+
+                Logger.LogInfo("User successful found");
+
+                return result;
+            }
+            catch (Exception exception)
+            {
+                Logger.LogException(exception);
+                throw exception;
+            }
+        }
+
         public async Task<User> CreateUser(User user)
         {
             try
@@ -63,7 +91,7 @@ namespace graph_master.data.dao
             }
         }
 
-        public async Task<bool> ConfirmUser(Guid confirmCode)
+        public async Task<User> ConfirmUser(Guid confirmCode)
         {
             try
             {
@@ -71,11 +99,11 @@ namespace graph_master.data.dao
                 {
                     Logger.LogInfo("Start user confirmation");
 
-                    int? userId = QueryFirstOrDefault<int>(@"
+                    int? userId = QueryFirstOrDefault<int?>(@"
                         select user_id
                         from not_confirmed_users
                         where confirm_code = @confirmCode
-                    ");
+                    ", new { confirmCode });
 
                     if (userId.HasValue)
                     {
@@ -86,14 +114,25 @@ namespace graph_master.data.dao
                             where user_id = @userId
                         ", new { userId });
 
+                        var user = QueryFirstOrDefault<User>(@"
+                            select 
+                                id as Id,
+                                user_name as UserName,
+                                first_name as FirstName,
+                                last_name as LastName,
+                                email as Email
+                            from users
+                            where id = @id
+                        ", new { userId.Value });
+
                         Logger.LogInfo("User successful confirmed");
+                        return user;
                     }
                     else
                     {
                         Logger.LogInfo("Not confirmed user not found or already confirmed");
+                        return null;
                     }
-
-                    return userId.HasValue;
                 });
             }
             catch (Exception exception)
