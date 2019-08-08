@@ -1,18 +1,18 @@
 import * as React from "react";
 
-import { 
+import {
     withStyles,
-    WithStyles, 
-    Grid, 
-    Paper, 
-    Avatar, 
-    Typography, 
-    TextField, 
-    FormControlLabel, 
-    Checkbox, 
-    Button, 
-    Link, 
-    CircularProgress 
+    WithStyles,
+    Grid,
+    Paper,
+    Avatar,
+    Typography,
+    TextField,
+    FormControlLabel,
+    Checkbox,
+    Button,
+    Link,
+    CircularProgress
 } from "@material-ui/core";
 import { layoutStyles, authenticateStyles, commonStyles } from "../mui-theme";
 import { Timeline } from "@material-ui/icons";
@@ -89,10 +89,10 @@ class SignInBase extends React.Component<Props, State> {
 
     render() {
         const { classes } = this.props;
-        const { 
-            loading, 
+        const {
+            loading,
             message,
-            userName, 
+            userName,
             password,
             rememberMe
         } = this.state;
@@ -140,17 +140,17 @@ class SignInBase extends React.Component<Props, State> {
                                 label="Remember me"
                             />
                             <div className={classes.submit}>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                disabled={loading || !this.validateCredentials()}
-                            >
-                                <div>Sign In</div>
-                                {loading && <CircularProgress size={24} className={classes.buttonProgress}/>}
-                            </Button>
-                            {message && <Typography variant="subtitle2" component="h6" color="error" className={classes.submitMessage}>{message}</Typography>}
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    disabled={loading || !this.validateCredentials()}
+                                >
+                                    <div>Sign In</div>
+                                    {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+                                </Button>
+                                {message && <Typography variant="subtitle2" component="h6" color="error" className={classes.submitMessage}>{message}</Typography>}
                             </div>
                             <Grid container>
                                 <Grid item xs>
@@ -168,7 +168,7 @@ class SignInBase extends React.Component<Props, State> {
                     </Grid>
                 </Grid>
             </Grid>
-            );
+        );
     }
 }
 
