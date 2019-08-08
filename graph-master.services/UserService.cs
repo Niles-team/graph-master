@@ -31,9 +31,11 @@ namespace graph_master.services
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public async Task<User> GetUser(int id) => await _userDao.GetUser(id);
+
         public async Task<User> CreateUser(User user)
         {
-            var _user = user;//await _userDao.CreateUser(user);
+            var _user = await _userDao.CreateUser(user);
             if (_user == null)
             {
                 return null;
@@ -62,7 +64,7 @@ namespace graph_master.services
             return _user;
         }
 
-        public async Task<bool> ConfirmUser(Guid confirmCode)
+        public async Task<User> ConfirmUser(Guid confirmCode)
         {
             var result = await _userDao.ConfirmUser(confirmCode);
 

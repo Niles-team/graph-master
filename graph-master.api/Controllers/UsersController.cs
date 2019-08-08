@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using graph_master.models;
 using graph_master.services;
@@ -39,6 +40,15 @@ namespace graph_master.api.Controllers
 
             if (result == null)
                 return Ok(new { message = "User name or password is incorrect" });
+
+            return Ok(result);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("confirm-user")]
+        public async Task<IActionResult> ConfirmUser([FromBody]UserConfirm model) 
+        {
+            var result = await _userService.ConfirmUser(model.Code);
 
             return Ok(result);
         }
