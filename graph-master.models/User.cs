@@ -1,3 +1,5 @@
+using System;
+
 namespace graph_master.models
 {
     public class User
@@ -9,6 +11,7 @@ namespace graph_master.models
         public string LastName { get; set; }
         public string Email { get; set; }
         public int? TeamId { get; set; }
+        public bool Confirmed { get; set; }
     }
 
     public class UserAuthenticated : User
@@ -21,5 +24,10 @@ namespace graph_master.models
         public string UserName { get; set; }
         public string Password { get; set; }
         public bool? RememberMe { get; set; }
+    }
+
+    public class UserConfirm
+    {
+        public Guid Code { get; set; }
     }
 }
