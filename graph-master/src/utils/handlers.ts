@@ -21,6 +21,9 @@ export async function handleResponse(response: Response, options?: ResponseOptio
 export async function handleJsonResponse<T>(response: Response, options?: JsonResponseOptions | undefined): Promise<T> {
     if (response.ok) {
         let contentType = response.headers.get('content-type');
+        if (response.status === 204) {
+            return null;
+        }
         if (contentType && contentType.includes('application/json')) {
             const text = await response.text();
             let value = JSON.parse(text, options ? createReviver(options) : undefined);
