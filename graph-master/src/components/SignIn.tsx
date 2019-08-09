@@ -66,13 +66,15 @@ class SignInBase extends React.Component<Props, State> {
 
     private handleUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({
-            userName: event.target && event.target.value
+            userName: event.target && event.target.value,
+            message: ''
         });
     }
 
     private handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({
-            password: event.target && event.target.value
+            password: event.target && event.target.value,
+            message: ''
         });
     }
 
