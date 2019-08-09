@@ -281,7 +281,7 @@ namespace graph_master.data.dao
                     email as Email
                 from users
                 where user_name = @userName 
-                and password_hash = crypt(@password, gen_salt('bf'))
+                and password_hash = crypt(@password, password_hash)
                 ", new { userName, password });
 
                 Logger.LogInfo("User successful sign in.");
