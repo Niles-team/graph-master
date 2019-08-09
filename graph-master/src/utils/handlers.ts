@@ -39,6 +39,14 @@ export async function handleJsonResponse<T>(response: Response, options?: JsonRe
     }
 }
 
+export async function handleTextResponse(response: Response, options?: ResponseOptions | undefined): Promise<string> {
+    if(response.ok) {
+        return await response.text();
+    } else {
+        await handleNotOkResponse(response, options && options.messageFormatter);
+    }
+}
+
 async function handleNotOkResponse(response: Response, messageFormatter: ((text: string) => string) | undefined): Promise<never> {
     if (response.status === 401) {
         throw new UnauthorizedError();
