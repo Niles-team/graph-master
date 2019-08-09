@@ -1,7 +1,17 @@
-import { handleJsonResponse, ResponseHandler } from "../utils";
+import { handleJsonResponse, ResponseHandler, handleTextResponse } from "../utils";
 import { AuthenticatedUser, User } from "../models";
 
 class UserService {
+    public async validateUserName(userName: string): Promise<string> {
+        return fetch(`api/users/validate-username?userName=${userName}`, { method: 'GET' })
+            .then(handleTextResponse as ResponseHandler<string>);
+    }
+    
+    public async validateEmail(email: string): Promise<string> {
+        return fetch(`api/users/validate-email?email=${email}`, { method: 'GET' })
+            .then(handleTextResponse as ResponseHandler<string>);
+    }
+
     public async signIn(userName: string, password: string): Promise<AuthenticatedUser> {
         return fetch('api/users/sign-in', {
             method: 'POST',
