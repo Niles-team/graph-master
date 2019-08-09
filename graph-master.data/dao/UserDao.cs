@@ -1,4 +1,6 @@
 using System;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using graph_master.common.utils;
 using graph_master.data.interfaces;
@@ -9,6 +11,90 @@ namespace graph_master.data.dao
     public class UserDao : BaseDao, IUserDao
     {
         public UserDao(string connectionString) : base(connectionString) { }
+
+        public async Task<string> ValidateUserName(string userName)
+        {
+            try
+            {
+                return await Task.Run(() =>
+                {
+                    Logger.LogInfo("Start user name validating.");
+
+                    Regex regex = new Regex(@"^\w+$");
+                    if (!regex.IsMatch(userName))
+                    {
+                        string message = "User name must contains only letters, numbers and underscores.";
+                        Logger.LogInfo(message);
+                        return message;
+                    }
+
+                    if(userName.Length < 5)
+                    {
+                        string message = "User name is to short";
+                        Logger.LogInfo(message);
+                        return message;
+                    }
+
+                    int? id = QueryFirstOrDefault<int?>(@"
+                        select id
+                        from users
+                        where user_name = @userName
+                    ", new { userName });
+                    if (id.HasValue)
+                    {
+                        string message = "User with same user name already created. Please try another or try to sign in.";
+                        Logger.LogInfo(message);
+                        return message;
+                    }
+
+                    Logger.LogInfo("User name successfuly validated.");
+                    return null;
+                });
+            }
+            catch (Exception exception)
+            {
+                Logger.LogException(exception);
+                throw exception;
+            }
+        }
+
+        public async Task<string> ValidateEmail(string email)
+        {
+            try
+            {
+                return await Task.Run(() =>
+                {
+                    Logger.LogInfo("Start email validation");
+
+                    if (!ValidateUtils.IsValidEmail(email))
+                    {
+                        string message = "Not a valid email";
+                        Logger.LogInfo(message);
+                        return message;
+                    }
+
+                    int? id = QueryFirstOrDefault<int?>(@"
+                    select id
+                    from users
+                    where email = @email
+                ", new { email });
+                    if (id.HasValue)
+                    {
+                        string message = "User with same email already created. Please try another or try to sign in.";
+                        Logger.LogInfo(message);
+                        return message;
+                    }
+
+                    Logger.LogInfo("Email successfuly validated.");
+                    return null;
+                });
+            }
+            catch (Exception exception)
+            {
+                Logger.LogException(exception);
+                throw exception;
+            }
+        }
 
         public async Task<User> GetUser(int id)
         {
