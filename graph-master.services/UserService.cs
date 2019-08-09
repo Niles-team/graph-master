@@ -31,6 +31,10 @@ namespace graph_master.services
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public async Task<string> ValidateUserName(string userName) => await _userDao.ValidateUserName(userName);
+
+        public async Task<string> ValidateEmail(string email) => await _userDao.ValidateEmail(email);
+
         public async Task<User> GetUser(int id) => await _userDao.GetUser(id);
 
         public async Task<User> CreateUser(User user)

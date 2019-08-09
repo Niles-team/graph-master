@@ -20,6 +20,22 @@ namespace graph_master.api.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("validate-username")]
+        public async Task<IActionResult> ValidateUserName([FromQuery]string userName)
+        {
+            var result = await _userService.ValidateUserName(userName);
+            return Ok(result);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("validate-email")]
+        public async Task<IActionResult> ValidateEmail([FromQuery] string email)
+        {
+            var result = await _userService.ValidateEmail(email);
+            return Ok(result);
+        }
+
+        [AllowAnonymous]
         [HttpPost("sign-up")]
         public async Task<IActionResult> SignUp([FromBody]User model)
         {
