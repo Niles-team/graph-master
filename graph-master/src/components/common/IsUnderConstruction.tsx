@@ -13,7 +13,7 @@ class IsUnderConstructionBase extends React.Component<WithStyles<typeof styles>>
             <Grid container direction="row" alignItems="center" justify="center" className={classes.root}>
                 <Grid item xs />
                 <Grid item>
-                    <Typography variant="h5" component="h5">Sorry... Page is under construction</Typography>
+                    <Typography variant="h5" component="h5">Sorry... Page is under construction.</Typography>
                 </Grid>
                 <Grid item xs />
             </Grid>
