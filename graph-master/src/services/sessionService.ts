@@ -1,4 +1,5 @@
 import { StorageItem } from "../models";
+import jwt_decode from "jwt-decode";
 
 class SessionService {
     private originalFetch: typeof fetch;
@@ -6,7 +7,7 @@ class SessionService {
     private readonly storageKey: string = 'graph-master-app';
     private readonly noInit = {};
 
-    public init() : void {
+    public init(): void {
         this.originalFetch = fetch.bind(window);
         this.mixSessionFetch();
     }
@@ -16,9 +17,33 @@ class SessionService {
         return storageValue && Boolean(storageValue.token);
     }
 
+    public authenticateUser(token: string): boolean {
+        const storageItem = this.getStorageItem();
+        if(this.filterToken(token))
+        {
+            return false;
+        }
+
+        storageItem.token = token;
+        sessionStorage.setItem(this.storageKey, JSON.stringify(storageItem));
+
+        return true;
+    }
+
     private getStorageItem(): StorageItem {
         let storageValue: StorageItem = JSON.parse(sessionStorage.getItem(this.storageKey));
+        
+        if(!storageValue)
+        {
+            storageValue = {
+                token: ''
+            };
+        }
 
+        if (!storageValue && !this.filterToken(storageValue.token)) {
+            storageValue.token = null;
+            sessionStorage.setItem(this.storageKey, JSON.stringify(storageValue));
+        }
         return storageValue;
     }
 
@@ -60,6 +85,19 @@ class SessionService {
 
             return this.originalFetch(input, init);
         };
+    }
+
+    private filterToken(token: string): string {
+        try {
+            const tokenData = jwt_decode<any>(token);
+            if (Date.now() >= tokenData.exp * 1000) {
+                return null;
+            }
+            return token;
+        } catch (error) {
+            console.log(`Token validation error: ${error}`);
+            return null;
+        }
     }
 }
 
