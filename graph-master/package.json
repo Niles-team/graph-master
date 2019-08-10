@@ -2,13 +2,14 @@
   "name": "graph-master",
   "version": "1.0.0",
   "scripts": {
-    "dev": "webpack-dev-server --progress --watch",
+    "dev": "webpack-dev-server --progress",
     "build": "webpack --progress --color",
     "watch": "webpack --watch"
   },
   "license": "ISC",
   "devDependencies": {
     "@types/history": "^4.7.2",
+    "@types/jwt-decode": "^2.2.1",
     "@types/lodash": "^4.14.136",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
@@ -26,6 +27,8 @@
   "dependencies": {
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
+    "@types/jwt-decode": "2.2.1",
+    "jwt-decode": "^2.2.0",
     "react": "^16.8.6",
     "react-animated-burgers": "^1.2.7",
     "react-dom": "^16.8.6",
