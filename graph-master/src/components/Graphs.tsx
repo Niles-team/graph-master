@@ -6,7 +6,7 @@ import { IsUnderConstruction } from "./common";
 
 const styles = mergeStyles();
 
-class GraphicsBase extends React.Component {
+class GraphsBase extends React.Component {
     render() {
         return (
             <IsUnderConstruction/>
@@ -14,4 +14,4 @@ class GraphicsBase extends React.Component {
     }
 }
 
-export const Graphics = withStyles(styles)(GraphicsBase);
+export const Graphs = withStyles(styles)(GraphsBase);
