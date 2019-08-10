@@ -13,6 +13,7 @@ import {
     ListItemIcon,
     Container,
     Tooltip,
+    Grid,
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core";
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
@@ -23,7 +24,8 @@ import { HamburgerArrowTurn } from "react-animated-burgers";
 import { routes } from "../../sharedConstants";
 import { mergeStyles } from "../../utils";
 import { layoutStyles } from "../../mui-theme";
-import { Dashboard, Timeline } from "@material-ui/icons";
+import { Dashboard, Timeline, ExitToApp } from "@material-ui/icons";
+import { sessionService } from "../../services";
 
 const controlStyles = {
     hamburgerButtonStyle: {
@@ -75,6 +77,12 @@ class LayoutBase extends React.Component<Props, State> {
         this.state = {
             drawerOpen: false,
         }
+    }
+
+    private signOut = () => {
+        const { history } = this.props;
+        sessionService.signOut();
+        history.push('/sign-in');
     }
 
     private toggleDrawerState = () => {
@@ -138,10 +146,30 @@ class LayoutBase extends React.Component<Props, State> {
                     }}
                     open={drawerOpen}
                 >
-                    <List>
-                        <div className={classes.appBarSpacer} />
-                        {menuItems}
-                    </List>
+                    <Grid container direction="column">
+                        <Grid item>
+                            <List>
+                                <div className={classes.appBarSpacer} />
+                                {menuItems}
+                            </List>
+                        </Grid>
+                        <Grid xs/>
+                        <Grid item>
+                            <List>
+                                <ListItem key="signOut" button onClick={this.signOut}>
+                                    <ListItemIcon>{!drawerOpen ?
+                                        (
+                                            <Tooltip title={"Sign out"}>
+                                                <ExitToApp/>    
+                                            </Tooltip>
+                                        ) : <ExitToApp/>
+                                    }
+                                    </ListItemIcon>
+                                    <ListItemText primary={"Sign out"} />
+                                </ListItem>
+                            </List>
+                        </Grid>
+                    </Grid>
                 </Drawer>
                 <div className={classes.content}>
                     <div className={classes.appBarSpacer} />
