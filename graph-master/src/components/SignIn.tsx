@@ -60,7 +60,7 @@ class SignInBase extends React.Component<Props, State> {
         const result: AuthenticatedUser = await userService.signIn(userName, password);
 
         if (result.token) {
-            if(sessionService.authenticateUser(result.token) && history) {
+            if(sessionService.signIn(result.token) && history) {
                 history.push('/');
             }
         }
