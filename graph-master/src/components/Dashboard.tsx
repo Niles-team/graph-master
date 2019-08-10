@@ -1,13 +1,14 @@
 import * as React from "react";
 import { withStyles } from "@material-ui/core";
 import { mergeStyles } from "../utils";
+import { IsUnderConstruction } from "./common";
 
 const styles = mergeStyles();
 
 class DashboardBase extends React.Component {
     render() {
         return (
-            <h1>Hello world</h1>
+            <IsUnderConstruction/>
         );
     }
 }

@@ -2,13 +2,14 @@ import * as React from "react";
 
 import { withStyles } from "@material-ui/core";
 import { mergeStyles } from "../utils/mergeStyles";
+import { IsUnderConstruction } from "./common";
 
 const styles = mergeStyles();
 
 class GraphicsBase extends React.Component {
     render() {
         return (
-            <h1>Graphics page</h1>
+            <IsUnderConstruction/>
         );
     }
 }
