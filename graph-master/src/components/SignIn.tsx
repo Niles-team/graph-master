@@ -1,4 +1,5 @@
 import * as React from "react";
+import { RouteComponentProps } from "react-router-dom";
 
 import {
     withStyles,
@@ -17,12 +18,12 @@ import {
 import { layoutStyles, authenticateStyles, commonStyles } from "../mui-theme";
 import { Timeline } from "@material-ui/icons";
 import { mergeStyles } from "../utils";
-import { userService } from "../services";
+import { userService, sessionService } from "../services";
 import { AuthenticatedUser } from "../models";
 
 const styles = mergeStyles(layoutStyles, authenticateStyles, commonStyles);
 
-interface Props extends WithStyles<typeof styles> {
+interface Props extends RouteComponentProps, WithStyles<typeof styles> {
 
 }
 
@@ -50,12 +51,19 @@ class SignInBase extends React.Component<Props, State> {
     private handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const { userName, password } = this.state;
+        const { history } = this.props;
 
         this.setState({
             loading: true
         });
 
         const result: AuthenticatedUser = await userService.signIn(userName, password);
+
+        if (result.token) {
+            if(sessionService.authenticateUser(result.token) && history) {
+                history.push('/');
+            }
+        }
 
         this.setState({
             loading: false,
