@@ -17,7 +17,7 @@ class SessionService {
         return storageValue && Boolean(storageValue.token);
     }
 
-    public authenticateUser(token: string): boolean {
+    public signIn(token: string): boolean {
         const storageItem = this.getStorageItem();
         if(this.filterToken(token))
         {
@@ -28,6 +28,12 @@ class SessionService {
         sessionStorage.setItem(this.storageKey, JSON.stringify(storageItem));
 
         return true;
+    }
+
+    public signOut() {
+        const storageItem = this.getStorageItem();
+        storageItem.token = null;
+        sessionStorage.setItem(this.storageKey, JSON.stringify(storageItem));
     }
 
     private getStorageItem(): StorageItem {
