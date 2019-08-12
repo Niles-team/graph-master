@@ -29,6 +29,7 @@
     "@material-ui/icons": "^4.2.1",
     "@types/jwt-decode": "2.2.1",
     "jwt-decode": "^2.2.0",
+    "material-table": "^1.48.0",
     "react": "^16.8.6",
     "react-animated-burgers": "^1.2.7",
     "react-dom": "^16.8.6",
