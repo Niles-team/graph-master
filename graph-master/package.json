@@ -28,6 +28,7 @@
     "@material-ui/core": "^4.3.2",
     "@material-ui/icons": "^4.2.1",
     "@types/jwt-decode": "2.2.1",
+    "@types/material-ui": "^0.21.6",
     "jwt-decode": "^2.2.0",
     "react": "^16.9.0",
     "react-animated-burgers": "^1.2.7",
