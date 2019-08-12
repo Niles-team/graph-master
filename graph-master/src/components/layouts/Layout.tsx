@@ -47,29 +47,6 @@ interface State {
     drawerOpen: boolean;
 }
 
-function ElevationScroll(props: Props) {
-    const { children, window } = props;
-    // Note that you normally won't need to set the window ref as useScrollTrigger
-    // will default to window.
-    // This is only being set here because the demo is in an iframe.
-    const trigger = useScrollTrigger({
-        disableHysteresis: true,
-        threshold: 0,
-        target: window ? window() : undefined,
-    });
-
-    return React.cloneElement(children, {
-        elevation: trigger ? 4 : 0,
-    });
-}
-
-ElevationScroll.propTypes = {
-    children: PropTypes.node.isRequired,
-    // Injected by the documentation to work in an iframe.
-    // You won't need it on your project.
-    window: PropTypes.func,
-};
-
 class LayoutBase extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
@@ -129,16 +106,14 @@ class LayoutBase extends React.Component<Props, State> {
 
         return (
             <div className={classes.root}>
-                <ElevationScroll {...this.props}>
-                    <AppBar position="fixed" className={classes.appBar}>
-                        <Toolbar>
-                            <HamburgerArrowTurn buttonWidth={24} isActive={drawerOpen} toggleButton={this.toggleDrawerState} barColor="white" className={classes.hamburgerButtonStyle} />
+                    <AppBar position="absolute" className={classes.appBar}>
+                        <Toolbar className={classes.toolbar}>
+                            <HamburgerArrowTurn  buttonWidth={24} isActive={drawerOpen} toggleButton={this.toggleDrawerState} barColor="white" className={classes.hamburgerButtonStyle} />
                             <Typography component="h1" variant="h6" color="inherit" noWrap>
                                 {currentRoute.name}
                             </Typography>
                         </Toolbar>
                     </AppBar>
-                </ElevationScroll>
                 <Drawer
                     variant="permanent"
                     classes={{
@@ -146,14 +121,14 @@ class LayoutBase extends React.Component<Props, State> {
                     }}
                     open={drawerOpen}
                 >
-                    <Grid container direction="column">
+                    <Grid container direction="column" className={classes.root}>
                         <Grid item>
                             <List>
                                 <div className={classes.appBarSpacer} />
                                 {menuItems}
                             </List>
                         </Grid>
-                        <Grid xs/>
+                        <Grid item xs/>
                         <Grid item>
                             <List>
                                 <ListItem key="signOut" button onClick={this.signOut}>
