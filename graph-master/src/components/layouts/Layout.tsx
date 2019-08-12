@@ -148,7 +148,7 @@ class LayoutBase extends React.Component<Props, State> {
                 </Drawer>
                 <div className={classes.content}>
                     <div className={classes.appBarSpacer} />
-                    <Container>
+                    <Container className={classes.container}>
                         {children}
                     </Container>
                 </div>
