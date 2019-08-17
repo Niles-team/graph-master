@@ -1,4 +1,4 @@
-namespace graph_master.common.utils
+namespace graph_master.common.utilities
 {
      public class EnvironmentUtils {
         static string PRODUCTION = "Production";

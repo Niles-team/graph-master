@@ -2,7 +2,7 @@ using System;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using graph_master.common.utils;
+using graph_master.common.utilities;
 using graph_master.data.interfaces;
 using graph_master.models;
 

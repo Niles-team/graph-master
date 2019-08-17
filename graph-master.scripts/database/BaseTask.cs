@@ -1,4 +1,4 @@
-using graph_master.common.utils;
+using graph_master.common.utilities;
 
 namespace graph_master.scripts.database
 {

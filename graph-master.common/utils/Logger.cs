@@ -1,6 +1,6 @@
 using System;
 
-namespace graph_master.common.utils
+namespace graph_master.common.utilities
 {
     public static class Logger
     {

@@ -1,6 +1,6 @@
 using System;
 using FluentMigrator.Runner;
-using graph_master.scripts.utils;
+using graph_master.scripts.utilities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace graph_master.scripts.database
