@@ -10,8 +10,8 @@ namespace graph_master.common.utilities
     {
         public static TTarget Convert(Stream stream, TSource source)
         {
-            DataContractJsonSerializer sourceSerializer = DataContractJsonSerializerCache<TSource>.Serializer;
-            DataContractJsonSerializer targetSerializer = DataContractJsonSerializerCache<TTarget>.Serializer;
+            var sourceSerializer = DataContractSerializerCache<TSource>.Serializer;
+            var targetSerializer = DataContractSerializerCache<TTarget>.Serializer;
             stream.SetLength(0);
             sourceSerializer.WriteObject(stream, source);
             stream.Position = 0;
