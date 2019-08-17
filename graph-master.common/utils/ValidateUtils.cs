@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace graph_master.common.utils
+namespace graph_master.common.utilities
 {
     public class ValidateUtils
     {

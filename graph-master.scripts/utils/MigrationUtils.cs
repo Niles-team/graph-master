@@ -4,7 +4,7 @@ using graph_master.common;
 using graph_master.scripts.database.migrations;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace graph_master.scripts.utils
+namespace graph_master.scripts.utilities
 {
     public class MigrationUtils
     {
