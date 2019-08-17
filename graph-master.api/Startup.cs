@@ -19,6 +19,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Http;
+using graph_master.api.Helpers;
 
 namespace graph_master.api
 {
@@ -44,7 +45,11 @@ namespace graph_master.api
             });
 
             services.AddHttpContextAccessor();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options =>
+            {
+                options.InputFormatters.Insert(0, new DataContractInputFormatter());
+                options.OutputFormatters.Insert(0, new DataContractOutputFormatter());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             string connectionString = Configuration.GetConnectionString("graph-master");
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
